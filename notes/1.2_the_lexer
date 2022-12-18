@@ -1,0 +1,27 @@
+we require the ability to process a text file and recognize its components
+we use a lexer to break up the input into "tokens"
+each token returned by the lexer includes a token code and (potentially) metadata 
+
+an enumeration is a user-defined data type that consists of constants
+
+each token returned by the lexer will be one of the Token enumeration values or 
+an "unknown" character which is returned as its ASCII value
+
+if the token is an identifier, the IdentifierStr global variable holds its name
+if the token is a numeric literal, the NumVal global variable holds its value
+
+gettok returns the next token from standard input
+it calls the C getchar() function to read characters one at a time from standard input
+it consumes characters as it recognizes them
+it stores the last character read but not processed in LastChar
+it ignores whitespace between tokens
+it should recognize identifiers and specific keywords such as "def"
+
+when reading a numeric value from input, 
+we use the C strtod function to convert it to a numeric value we store in NumVal
+note this does not do sufficient error checking: it will read "1.23.45.67" 
+and handle it as if you typed "1.23"
+
+we handle comments by skipping to the end of the line and reading the next token
+if the input does not match any of the above cases 
+then we return the character as its ascii value

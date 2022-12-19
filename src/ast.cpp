@@ -7,6 +7,11 @@
 #include "BinaryExprAST.hpp"
 #include "PrototypeAST.hpp"
 #include "FunctionAST.hpp"
+#include "CallExprAST.hpp"
+
+//===----------------------------------------------------------------------===//
+// Abstract Syntax Tree (aka Parse Tree)
+//===----------------------------------------------------------------------===//
 
 // expression ast; base class for all expression nodes
 ExprAST::~ExprAST() {}
@@ -26,6 +31,12 @@ BinaryExprAST::BinaryExprAST(char op, std::unique_ptr<ExprAST> lhs, std::unique_
     Op = op;
     LHS = std::move(lhs);
     RHS = std::move(rhs);
+}
+
+/// call expression ast; expression class for function calls
+CallExprAST::CallExprAST(const std::string &callee, std::vector<std::unique_ptr<ExprAST>> args){
+    Callee = callee;
+    Args = std::move(Args);
 }
 
 // prototype ast; this class represents the "prototype" for a function

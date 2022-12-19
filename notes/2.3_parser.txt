@@ -47,3 +47,31 @@ to parse an arbitrary primary expression, we determine what expression type it i
 
 ParsePrimary() uses look-ahead to determine what expression is being consumed
 it then makes a call to the corresponding function which parses the expression
+
+binary expressions are harder to parse because some operators have higher precedence 
+than others, an efficient and elegant way to handle this is with operator-precedence
+parsing; which uses precedence of binary operators to guide recursion
+
+GetTokPrecedence returns the precedence for the current token, or -1 if the token is 
+not a binary operator
+
+the idea of operator precedence parsing is to break down an expression with binary 
+operators into pieces; the expression "a+b+(c+d)*e*f+g" should parse the leading
+primary expression "a", and then the pairs [+, b], [+, (c+d)], [*, e], [*, f] and [+, g]
+
+since parentheses are primary expressions, the binary expression parser does not 
+need to worry about nested subexpressions such as (c + d)
+
+an expression is a primary epxression potentially followed by a sequence of 
+[binop, primaryexpr] pairs
+
+ParseBinOpRHS parses the sequence of [binop, primaryexpr] pairs
+it takes a precedence and a pointer to an expression for the part that has been
+parsed so far, "binorphs" is allowed to be empty; in which case it returns the 
+expression it was passed
+
+the precedence value passed in ParseBinOpRHS indicates the minimal operator precedence
+the function is allowed to consume; if the current pair stream is [+, x] and ParseBinOpRHS
+is passed a precedence of 40, it will not consume any tokens
+
+

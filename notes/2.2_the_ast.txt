@@ -1,0 +1,34 @@
+we use the lexer to build a full parser for the language
+the parser uses a combination of Recursive Descent Parsing 
+and Operator-Precendence Parsing to parse the language 
+we define and build an Abstract Syntax Tree using the parser
+
+the AST captures the behavior of a program in such a way that is easier for 
+code-generation stages of the compiler to interpret 
+
+we want one object for each construct in the language, 
+and the AST should closely model the language
+
+Kaleidoscope has expressions, a prototype, and a function object
+
+we define the base expression AST class and a subclass of it for numeric literals
+NumberExprAST captures the numeric value of the ltieral as an instance variable
+this alows later phases of the compiler to know what the stored numeric value is 
+
+we only create the AST, there are no useful accessor methods on them
+it would be easy to extend the functionality in the future 
+
+variables capture the variable name,
+binary operators capture their opcode (ex. '+'),
+calls capture a function name and a list of argument expressions
+note the AST captures language features without knowledge of the language's syntax
+
+because the language does not have conditional control flow,
+it is not Turing-complete; this will be fixed in the future
+
+we need a way to talk about the interface to a function
+and a way to talk about functions themselves
+
+functions in Kaleidoscope are typed with just a count of their arguments
+since all values are double precision floating point, the type of each argument 
+does not need to be stored anywhere

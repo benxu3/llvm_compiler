@@ -1,0 +1,3 @@
+we transform the AST produced by the parser into LLVM IR
+to start, we define virtual code generation methods in each AST class
+
